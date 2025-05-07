@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="./src/nepaliDatePicker.css" />
+    <script src="./src/nepaliDatePicker.js"></script>
+</head>
+
+<body>
+    <input type="text" value="" name="date" class="date-picker" />
+    <input type="date" value="" name="date" class="date-picker-english" />
+
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                $('.date-picker').nepaliDatePicker({
+                    dateFormat: '%d/%m/%y',
+                    closeOnDateSelect: true
+                });
+
+                $(".date-picker-english").on("change", function () {
+                    console.log("english date", $(this).val())
+                    const date = new Date($(this).val());
+                    $('.date-picker').setEnglishDate(date);
+                });
+
+                $(".date-picker").on("dateChange", function (event) {
+                    const date = event.datePickerData.adDate;
+
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const year = date.getFullYear();
+
+                    const formatDate = `${year}-${month}-${day}`;
+                    $(".date-picker-english").val(formatDate);
+                });
+            });
+        })(jQuery);
+    </script>
+</body>
+
+</html>

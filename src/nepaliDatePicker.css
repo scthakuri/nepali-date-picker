@@ -25,7 +25,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  border: 2px solid rgba(129, 120, 120, 0.17);
+  border: 1px solid rgba(129, 120, 120, 0.1);
 }
 
 .nepali-date-picker table thead {
@@ -39,20 +39,23 @@
   text-align: center;
   cursor: default;
 }
+
 .nepali-date-picker table th {
   background: #f1f1f1 none repeat scroll 0 0;
 }
 
 .nepali-date-picker table thead td {
-  color: #8b8686;
-  font-weight: bold;
+  color: #000;
+  font-weight: 500;
+  padding: 5px;
 }
 
 .nepali-date-picker table td {
-  border: 1px solid rgba(154, 150, 150, 0.46);
+  border: 1px solid rgba(154, 150, 150, 0.1);
   color: #666666;
   padding: 0;
-  width: 35px;
+  width: 30px;
+  height: 30px;
   text-align: center;
   font-size: 14px;
 }
@@ -157,8 +160,8 @@
   border: 1px solid #cccccc;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.32);
   display: none;
-  height: 99px;
-  padding: 5px;
+  height: 153px;
+  padding:0;
   position: absolute;
   width: 100%;
   /*overflow: hidden;*/
@@ -195,7 +198,7 @@
 .nepali-date-picker .drop-down-content ul {
   list-style: outside none none;
   margin: 0;
-  padding: 0 5px 0 0;
+  padding: 0;
 }
 
 .drop-down-content li {
@@ -203,7 +206,9 @@
   font-size: 16px;
   font-weight: normal;
   line-height: 20px;
-  text-align: right;
+  text-align: center;
+  padding: 5px 8px;
+  font-weight: normal !important;
 }
 
 .drop-down-content li:hover {
@@ -215,8 +220,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 13px;
-  height: 13px;
+  width: 3px;
 }
 
 ::-webkit-scrollbar-track {

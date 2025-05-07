@@ -627,9 +627,9 @@ var calendarFunctions = {};
       } else if (adYear < calendarData.minBsYear - 57 || adYear > calendarData.maxBsYear - 57) {
         throw new RangeError(
           'Parameter adYear value should be in range of ' +
-            (calendarData.minBsYear - 57) +
-            ' to ' +
-            (calendarData.maxBsYear - 57)
+          (calendarData.minBsYear - 57) +
+          ' to ' +
+          (calendarData.maxBsYear - 57)
         );
       }
     },
@@ -668,7 +668,7 @@ var calendarFunctions = {};
         } else if (key === 'yearDiff' && value > calendarData.maxBsYear - calendarData.minBsYear + 1) {
           throw new RangeError(
             'Parameter yearDiff value should be in range of 0 to ' +
-              (calendarData.maxBsYear - calendarData.minBsYear + 1)
+            (calendarData.maxBsYear - calendarData.minBsYear + 1)
           );
         }
       });
@@ -1071,6 +1071,26 @@ var calendarFunctions = {};
         }
         datePickerPlugin.addEventHandler($element, $nepaliDatePicker);
         datePickerPlugin.addCommonEventHandler($nepaliDatePicker);
+
+        $element.data('nepaliDatePicker', {
+          updateDate: function (newDate) {
+            const currentBsDate = calendarFunctions.getBsDateByAdDate(
+              newDate.getFullYear(),
+              newDate.getMonth() + 1,
+              newDate.getDate()
+            );
+
+            var bsYear = currentBsDate.bsYear;
+            var bsMonth = currentBsDate.bsMonth;
+            var bsDate = currentBsDate.bsDate;
+
+            datePickerPlugin.setCalendarDate($nepaliDatePicker, bsYear, bsMonth, bsDate);
+            datePickerPlugin.renderMonthCalendar($nepaliDatePicker);
+            $element.val(
+              calendarFunctions.bsDateFormat(datePickerPlugin.options.dateFormat, bsYear, bsMonth, bsDate)
+            )
+          }
+        });
       },
       addCommonEventHandler: function () {
         var $datePickerWrapper = $('.nepali-date-picker');
@@ -1424,12 +1444,12 @@ var calendarFunctions = {};
             if (isCurrentMonthDate) {
               var $td = $(
                 '<td class="current-month-date" data-date="' +
-                  calendarDate +
-                  '" data-weekDay="' +
-                  (k - 1) +
-                  '">' +
-                  calendarFunctions.getNepaliNumber(calendarDate) +
-                  '</td>'
+                calendarDate +
+                '" data-weekDay="' +
+                (k - 1) +
+                '">' +
+                calendarFunctions.getNepaliNumber(calendarDate) +
+                '</td>'
               );
               if (calendarDate == datePickerData.bsDate) {
                 $td.addClass('active');
@@ -1533,5 +1553,14 @@ var calendarFunctions = {};
 
     datePickerPlugin.addCommonEventHandler();
     return this;
+  };
+
+  $.fn.setEnglishDate = function (newDate) {
+    return this.each(function () {
+      var instance = $(this).data('nepaliDatePicker');
+      if (instance && typeof instance.updateDate === 'function') {
+        instance.updateDate(newDate);
+      }
+    });
   };
 })(jQuery, calendarFunctions);
